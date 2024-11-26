@@ -13,6 +13,10 @@ TransmissionOverK                T
 TRC.EMPDOSK         T
 TRC.EMPDOS                       T
 TRC.LeadsDOS                     F
+EM.ParallelOverKNum       	 4
+(choose this as per the cluster you are using, also use -np 4 in the submit script, use 1 node)
+You can switch off TransmissionOverK                F to get rid of lots of files!!
+
 
 removing the block 
 %block kgrid_Monkhorst_Pack
@@ -28,6 +32,12 @@ removing the block
 InitTransmRange          -0.00001d0 eV
 FinalTransmRange          0.00001d0 eV
 
+You need to fix the TRC up and down files a bit more:
+cat bulkFGaT3.TRC.k.up_PartK_0 bulkFGaT3.TRC.k.up_PartK_1 bulkFGaT3.TRC.k.up_PartK_2 bulkFGaT3.TRC.k.up_PartK_3 bulkFGaT3.TRC.k.up_PartK_4 bulkFGaT3.TRC.k.up_PartK_5 bulkFGaT3.TRC.k.up_PartK_6 bulkFGaT3.TRC.k.up_PartK_7 bulkFGaT3.TRC.k.up_PartK_8 bulkFGaT3.TRC.k.up_PartK_9 > bulkFGaT3.TRC.k.up
+cat bulkFGaT3.TRC.k.down_PartK_0 bulkFGaT3.TRC.k.down_PartK_1 bulkFGaT3.TRC.k.down_PartK_2 bulkFGaT3.TRC.k.down_PartK_3 bulkFGaT3.TRC.k.down_PartK_4 bulkFGaT3.TRC.k.down_PartK_5 bulkFGaT3.TRC.k.down_PartK_6 bulkFGaT3.TRC.k.down_PartK_7 bulkFGaT3.TRC.k.down_PartK_8 bulkFGaT3.TRC.k.down_PartK_9 > bulkFGaT3.TRC.k.down
+
+and sort the first two columns:
+:%!sort -k1,1n -k2,2n
 
 
  Then one should submit this calculation. The k-resolved trc can be found in the file system_label.TRC.k.up and system_label.TRC.k.down
